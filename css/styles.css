@@ -1,0 +1,83 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.map {
+  height: 100vh;
+  background-color: aliceblue;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+
+.content-container {
+  width: 30%; /* Adjust the ratio as needed */
+  padding: 20px;
+}
+
+.map-container {
+  width: 70%; /* Adjust the ratio as needed */
+}
+
+.interactive-map > label,
+.filters > label,
+.slope-threshold > label,
+.value-of-parcel > label, 
+.results > label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: gray;
+}
+
+/* Base styles for .checkbox-container */
+.checkbox-container {
+  background-color: #f5f5f5;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+/* Font styles for various elements within .checkbox-container */
+.checkbox-container *,
+.checkbox-container input[type="text"] {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+}
+
+/* Specific styles for checkbox and text input */
+.checkbox-container input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.checkbox-container input[type="text"] {
+  font-size: 10px;
+  width: 60px; /* Adjust the width of text inputs */
+}
+
+
+
+
+/* 
+javascript mobile style: 11/8 lecture
+*/
+
+@media screen and (width <= 425px) {
+  main {
+    flex-direction: column-reverse;
+  }
+
+  .map {
+    height: 50vh;
+  }
+
+
+}
