@@ -1,4 +1,4 @@
-import { initializeMap } from './map.js';
+import { runMap } from './map.js';
 import { initializeList } from './list.js';
 import { initializeSearch } from './search.js';
 
@@ -13,7 +13,7 @@ console.log("Fetch successful", parcelInfo);
 
 const events = new EventTarget();
 
-const map = initializeMap(parcelInfo, events);
+const map = runMap(parcelInfo, events);
 // initializeList(parcelInfo, events);
 // initializeSearch(parcelInfo, events);
 
