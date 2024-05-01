@@ -28,6 +28,7 @@ main {
 
 .interactive-map > label,
 .filters > label,
+.size-of-parcel > label,
 .slope-threshold > label,
 .value-of-parcel > label, 
 .results > label {
