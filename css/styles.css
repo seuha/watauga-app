@@ -31,11 +31,12 @@ main {
 .size-of-parcel > label,
 .slope-threshold > label,
 .value-of-parcel > label, 
-.results > label {
+.list > label {
   font-family: 'Montserrat', sans-serif;
   font-size: 15px;
   font-weight: bold;
   color: gray;
+  margin-bottom: 20px;
 }
 
 /* Base styles for .checkbox-container */
@@ -51,7 +52,7 @@ main {
 .checkbox-container *,
 .checkbox-container input[type="text"] {
   font-family: 'Montserrat', sans-serif;
-  font-size: 15px;
+  font-size: 12px;
 }
 
 /* Specific styles for checkbox and text input */
@@ -64,7 +65,35 @@ main {
   width: 60px; /* Adjust the width of text inputs */
 }
 
+/* Base styles for .results-container */
+.results-container {
+  background-color: #f5f5f5;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 15px;
+  max-height: 300px; /* Adjust the height as needed */
+  overflow-y: auto; /* Add a vertical scrollbar if the content exceeds the max-height */
+}
 
+#resultsList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#resultsList div {
+  cursor: pointer;
+  padding: 5px;
+  border-bottom: 1px solid lightgray;
+}
+
+#resultsList div:last-child {
+  border-bottom: none;
+}
+
+#resultsList div:hover {
+  background-color: #e0e0e0;
+}
 
 
 /* 

@@ -8,6 +8,12 @@
       
 </head>
 <body>
+<<<<<<< Updated upstream
+=======
+    <div class = "title">
+        <h1> Watauga Affordable Housing: Development Predictions (2027)</h1>
+    </div>
+>>>>>>> Stashed changes
     <main>
         <div class="content-container">
             <div class="search-bar">
@@ -40,8 +46,12 @@
                   <div class="size-of-parcel">
                     <label>Size of Parcel</label>
                   </div>
+<<<<<<< Updated upstream
                   <br>
                     <input type="checkbox" name="size-filter" id="0-0.5-acres" />
+=======
+                    <!-- <input type="checkbox" id="0-0.5-acres" class="size-checkbox" />
+>>>>>>> Stashed changes
                     <label for="0-0.5-acres">0-0.5 acres (single-family)</label>
                     <br>
                     <input type="checkbox" name="size-filter" id="0.5-1-acres" />
@@ -55,26 +65,55 @@
                     <br>
                     <input type="checkbox" name="size-filter" id="5-1000000-acres" />
                     <label for="5-&-over-acres">5 & over acres</label>
+<<<<<<< Updated upstream
                     <br>
 
+=======
+                    <br> -->
+>>>>>>> Stashed changes
                     <div class="acres-range">
                         <input type="text" id="min-acres" placeholder="min acres">
                         <input type="text" id="max-acres" placeholder="max acres">
+<<<<<<< Updated upstream
                         <button id="apply-acres-filters">Apply</button>
+=======
+                        <br>
+                        <button id="apply-filters">Apply</button>
+                        <button id="remove-filters">Remove</button>
+>>>>>>> Stashed changes
                     </div>
                 </div>
+
+                <!-- Slope Threshold -->
                 <div class="checkbox-container">
                     <div class="slope-threshold">
                         <label>Slope Threshold</label>
+<<<<<<< Updated upstream
                         <input type="text" id="slope-threshold" placeholder="____%">
                         <button id="apply-slope-filters">Apply</button>
                         
                     </div>
                 </div>
+=======
+                    </div>
+                        <input type="text" id="slope-threshold" placeholder="max slope °">
+                        <br>
+                        <button id="apply-slope-filters">Apply</button>
+                        <button id="remove-slope-filters">Remove</button>
+                    </div>
+                </div>
+
+                <!-- Value of Parcel -->
+>>>>>>> Stashed changes
                 <div class="checkbox-container">
                     <div class="value-of-parcel">
                         <label>Value of Parcel</label>
                     </div>
+<<<<<<< Updated upstream
+=======
+                    <!-- <input type="checkbox" id="0-10000" class="value-checkbox"/>
+                    <label for="0-10000">$0 - $10,000</label>
+>>>>>>> Stashed changes
                     <br>
                     <input type="checkbox" name="value-filter" id="0-10000-value" />
                     <label for="0-10000-value">$0 - $10,000</label>
@@ -82,6 +121,7 @@
                     <input type="checkbox" name="value-filter" id="10000-20000-value" />
                     <label for="10000-20000-value">$10,000 - $20,000</label>
                     <br>
+<<<<<<< Updated upstream
                     <input type="checkbox" name="value-filter" id="20000-50000-value" />
                     <label for="20000-50000-value">$20,000 - $50,000</label>
                     <br>
@@ -97,6 +137,28 @@
                 <label>3. Result: Top 10 Parcels on Likelihood of Development </label>
                 <br>
             </div>
+=======
+                    <input type="checkbox" id="50000-over" class="value-checkbox"/>
+                    <label for="50000-over">$50,000 over</label> 
+                    <br> -->
+                    <input type="text" id="min-value" placeholder="$min">
+                    <span>to</span>
+                    <input type="text" id="max-value" placeholder="$max">
+                    <br>
+                    <button id="apply-value-filters">Apply</button>
+                    <button id="remove-value-filters">Remove</button>
+                </div>
+                <br>
+
+            <!-- List of top 10 parcels -->
+            <div class="list">
+                <label>Top 10 Parcels on Likelihood of Development</label>
+                <br>
+                <div class="results-container">
+                <div id="resultsList"></div>
+                </div>
+            </div>
+>>>>>>> Stashed changes
         </div>
         <div class="map-container">
             <div id="map" class="map"></div>
