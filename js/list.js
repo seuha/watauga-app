@@ -30,8 +30,8 @@ export function generateTopParcels(features, map, parcelLayer) {
   resultsContainer.innerHTML = '';
   resultsContainer.appendChild(resultsList);
 
-  // Add event listener to map to handle parcel deselection
-  map.on('click', () => {
-    parcelLayer.setStyle(parcelLayer.options.style);
-  });
+  // // Add event listener to map to handle parcel deselection
+  // map.on('click', () => {
+  //   parcelLayer.setStyle(parcelLayer.options.style);
+  // });
 }

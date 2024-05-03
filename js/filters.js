@@ -45,7 +45,8 @@ export function filterParcels(parcelLayer, developmentProbabilityLayer, distance
         return {
           weight: 1,
           color: 'black',
-          fillOpacity: 0.5
+          fillColor: 'black',
+          fillOpacity: 0.8
         };
       } else {
         return {

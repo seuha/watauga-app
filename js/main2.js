@@ -11,8 +11,8 @@ const events = new EventTarget();
 const map = initializeMap(parcelInfo, events);
 window.themap = map;
 
-// Search
-initializeSearch(data, events)
+// // Search
+// initializeSearch(data, events)
 
 
 // Call filterParcels with the map object

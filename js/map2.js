@@ -1,4 +1,20 @@
 // Initialize map with OSM
+
+export function layerPopup(layer) {
+  return `
+    <h3>Parcel Information</h3>
+    <p>Parcel ID: ${layer.feature.properties.PARCELID}</p>
+    <p>Area (acres): ${layer.feature.properties.area_acre}</p>
+    <p>Slope Average (°): ${layer.feature.properties.Slope_Ave}</p>
+    <p>Slope Maximum (°): ${layer.feature.properties.Slope_Max}</p>
+    <p>Distance to Road (ft): ${layer.feature.properties.Dist_Road}</p>
+    <p>Development Probability: ${layer.feature.properties.Dvpt_Prob}</p>
+    <br>
+    <p>Undevelopable (<35°): ${layer.feature.properties.undevelopable === 1 ? 'Yes' : 'No'}</p>
+    <p>Already Developed: ${layer.feature.properties.developed === 1 ? 'Yes' : 'No'}</p>
+  `;
+}
+
 export function initializeMap(parcelInfo, events) {
   const map = L.map('map', { preferCanvas: true }).setView([36.216795, -81.6745517], 12);
 
@@ -15,10 +31,11 @@ export function initializeMap(parcelInfo, events) {
     style: feature => ({
       weight: 1,
       color: 'black',
-      fillOpacity: 0.5
+      fillcolor: 'black',
+      fillOpacity: 0.8
     }),
-    onEachFeature: addPopup
-  });
+    // onEachFeature: addPopup
+  }).bindPopup(layerPopup);
 
   map.parcelLayer = parcelLayer; //attaches to map object
 
@@ -30,8 +47,8 @@ export function initializeMap(parcelInfo, events) {
       color: '#CCCCCC',
       fillOpacity: 0.8
     }),
-    onEachFeature: addPopup
-  });
+    // onEachFeature: addPopup
+  }).bindPopup(layerPopup);;
 
   map.developmentProbabilityLayer = developmentProbabilityLayer; //attaches to map object
 
@@ -43,8 +60,8 @@ export function initializeMap(parcelInfo, events) {
       color: '#CCCCCC',
       fillOpacity: 0.8
     }),
-    onEachFeature: addPopup
-  });
+    // onEachFeature: addPopup
+  }).bindPopup(layerPopup);;
 
   map.distanceToRoadsLayer = distanceToRoadsLayer; //attaches to map object
 
@@ -87,39 +104,39 @@ export function initializeMap(parcelInfo, events) {
 
   /* =============== Popup =============== */
   // Function to add popups to each parcel - 5/2 changed from hover to click
-  function addPopup(feature, layer) {
-    // Store the original style options
-    const originalStyle = layer.options.style;
+  // function addPopup(feature, layer) {
+  //   // Store the original style options
+  //   const originalStyle = layer.options.style;
 
-    layer.on('click', e => {
-      layer.setStyle({
-        weight: 3,
-        color: '#000000'
-      });
+  //   layer.on('click', e => {
+  //     layer.setStyle({
+  //       weight: 3,
+  //       color: '#000000'
+  //     });
 
-      const popupContent = `
-        <h3>Parcel Information</h3>
-        <p>Parcel ID: ${feature.properties.PARCELID}</p>
-        <p>Area (acres): ${feature.properties.area_acre}</p>
-        <p>Slope Average (°): ${feature.properties.Slope_Ave}</p>
-        <p>Slope Maximum (°): ${feature.properties.Slope_Max}</p>
-        <p>Distance to Road (ft): ${feature.properties.Dist_Road}</p>
-        <p>Development Probability: ${feature.properties.Dvpt_Prob}</p>
-        <br>
-        <p>Undevelopable (<35°): ${feature.properties.undevelopable === 1 ? 'Yes' : 'No'}</p>
-        <p>Already Developed: ${feature.properties.developed === 1 ? 'Yes' : 'No'}</p>
-      `;
-      layer.bindPopup(popupContent).openPopup();
-    });
+  //     const popupContent = `
+  //       <h3>Parcel Information</h3>
+  //       <p>Parcel ID: ${feature.properties.PARCELID}</p>
+  //       <p>Area (acres): ${feature.properties.area_acre}</p>
+  //       <p>Slope Average (°): ${feature.properties.Slope_Ave}</p>
+  //       <p>Slope Maximum (°): ${feature.properties.Slope_Max}</p>
+  //       <p>Distance to Road (ft): ${feature.properties.Dist_Road}</p>
+  //       <p>Development Probability: ${feature.properties.Dvpt_Prob}</p>
+  //       <br>
+  //       <p>Undevelopable (<35°): ${feature.properties.undevelopable === 1 ? 'Yes' : 'No'}</p>
+  //       <p>Already Developed: ${feature.properties.developed === 1 ? 'Yes' : 'No'}</p>
+  //     `;
+  //     layer.bindPopup(popupContent).openPopup();
+  //   });
 
-    // Close the popup when clicking outside the parcel or on another parcel
-    map.on('click', e => {
-      if (e.target !== layer) {
-        layer.setStyle(originalStyle);
-        layer.closePopup();
-      }
-    });
-  }
+  //   // Close the popup when clicking outside the parcel or on another parcel
+  //   map.on('click', e => {
+  //     if (e.target !== layer) {
+  //       layer.setStyle(originalStyle);
+  //       layer.closePopup();
+  //     }
+  //   });
+  // }
 
   return {
     map,
