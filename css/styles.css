@@ -4,6 +4,21 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+.title {
+  background-color: #217059;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  padding: 0.2rem;
+  padding-left: 1rem;
+  height: 10%;
+  color: white;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
 .map {
   height: 100vh;
   background-color: aliceblue;
@@ -18,12 +33,12 @@ main {
 
 
 .content-container {
-  width: 30%; /* Adjust the ratio as needed */
+  width: 20%; /* Adjust the ratio as needed */
   padding: 20px;
 }
 
 .map-container {
-  width: 70%; /* Adjust the ratio as needed */
+  width: 80%; /* Adjust the ratio as needed */
 }
 
 .interactive-map > label,

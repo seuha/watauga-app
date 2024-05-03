@@ -8,20 +8,17 @@
       
 </head>
 <body>
-<<<<<<< Updated upstream
-=======
     <div class = "title">
         <h1> Watauga Affordable Housing: Development Predictions (2027)</h1>
     </div>
->>>>>>> Stashed changes
     <main>
         <div class="content-container">
             <div class="search-bar">
                 <input type="text" id="parcel-id" placeholder="Search by Parcel ID">
                 <button id="search-button">Search</button>
             </div>
-
-            <div class="interactive-map">
+            <br>
+            <!-- <div class="interactive-map">
                 <label>1. Layers</label>
                 <br>
                 <div class="checkbox-container">
@@ -37,21 +34,17 @@
                       Distance to Main Roads
                     </label>
                   </div>
-                </div>
-            </div>
+                </div> -->
+            <!-- </div>  -->
             <div class="filters">
-                <label>2. Filters</label>
+                <label>Filters</label>
                 <br>
                 <div class="checkbox-container">
                   <div class="size-of-parcel">
                     <label>Size of Parcel</label>
                   </div>
-<<<<<<< Updated upstream
-                  <br>
-                    <input type="checkbox" name="size-filter" id="0-0.5-acres" />
-=======
+                    <!-- <input type="checkbox" name="size-filter" id="0-0.5-acres" /> -->
                     <!-- <input type="checkbox" id="0-0.5-acres" class="size-checkbox" />
->>>>>>> Stashed changes
                     <label for="0-0.5-acres">0-0.5 acres (single-family)</label>
                     <br>
                     <input type="checkbox" name="size-filter" id="0.5-1-acres" />
@@ -65,22 +58,15 @@
                     <br>
                     <input type="checkbox" name="size-filter" id="5-1000000-acres" />
                     <label for="5-&-over-acres">5 & over acres</label>
-<<<<<<< Updated upstream
                     <br>
 
-=======
                     <br> -->
->>>>>>> Stashed changes
                     <div class="acres-range">
                         <input type="text" id="min-acres" placeholder="min acres">
                         <input type="text" id="max-acres" placeholder="max acres">
-<<<<<<< Updated upstream
-                        <button id="apply-acres-filters">Apply</button>
-=======
                         <br>
                         <button id="apply-filters">Apply</button>
                         <button id="remove-filters">Remove</button>
->>>>>>> Stashed changes
                     </div>
                 </div>
 
@@ -88,13 +74,6 @@
                 <div class="checkbox-container">
                     <div class="slope-threshold">
                         <label>Slope Threshold</label>
-<<<<<<< Updated upstream
-                        <input type="text" id="slope-threshold" placeholder="____%">
-                        <button id="apply-slope-filters">Apply</button>
-                        
-                    </div>
-                </div>
-=======
                     </div>
                         <input type="text" id="slope-threshold" placeholder="max slope °">
                         <br>
@@ -104,16 +83,12 @@
                 </div>
 
                 <!-- Value of Parcel -->
->>>>>>> Stashed changes
                 <div class="checkbox-container">
                     <div class="value-of-parcel">
                         <label>Value of Parcel</label>
                     </div>
-<<<<<<< Updated upstream
-=======
                     <!-- <input type="checkbox" id="0-10000" class="value-checkbox"/>
                     <label for="0-10000">$0 - $10,000</label>
->>>>>>> Stashed changes
                     <br>
                     <input type="checkbox" name="value-filter" id="0-10000-value" />
                     <label for="0-10000-value">$0 - $10,000</label>
@@ -121,7 +96,6 @@
                     <input type="checkbox" name="value-filter" id="10000-20000-value" />
                     <label for="10000-20000-value">$10,000 - $20,000</label>
                     <br>
-<<<<<<< Updated upstream
                     <input type="checkbox" name="value-filter" id="20000-50000-value" />
                     <label for="20000-50000-value">$20,000 - $50,000</label>
                     <br>
@@ -137,7 +111,6 @@
                 <label>3. Result: Top 10 Parcels on Likelihood of Development </label>
                 <br>
             </div>
-=======
                     <input type="checkbox" id="50000-over" class="value-checkbox"/>
                     <label for="50000-over">$50,000 over</label> 
                     <br> -->
@@ -158,15 +131,14 @@
                 <div id="resultsList"></div>
                 </div>
             </div>
->>>>>>> Stashed changes
         </div>
         <div class="map-container">
             <div id="map" class="map"></div>
         </div>
     </main>
     <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
-    <script type="module" src="js/main.js"></script>
-    <script type="module" src="js/map.js"></script>
+    <script type="module" src="js/main2.js"></script>
+    <script type="module" src="js/map2.js"></script>
     <script type="module" src="js/list.js"></script>
     <script type="module" src="js/search.js"></script>
 </body>

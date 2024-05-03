@@ -1,6 +1,7 @@
 import { initializeMap } from './map2.js';
 import { filterParcels, removeSizeFilter, removeSlopeFilter, removeValueFilter } from './filters.js';
 import { generateTopParcels } from './list.js';
+// import { initializeSearch } from './search.js';
 
 const parcelInfoResp = await fetch('./data/output.geojson');
 const parcelInfo = await parcelInfoResp.json();
@@ -9,6 +10,9 @@ console.log('Parcel Info:', parcelInfo);
 const events = new EventTarget();
 const map = initializeMap(parcelInfo, events);
 window.themap = map;
+
+// Search
+initializeSearch(data, events)
 
 
 // Call filterParcels with the map object
