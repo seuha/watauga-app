@@ -1,71 +1,92 @@
-const searchBox = document.querySelector('#parcel-id');
+// search.js
+let searchBox;
 
-function initializeSearch(data, events) {
-  
-  //const searchButton = document.querySelector('#search-button');
-  searchBox.addEventListener('input', (evt) => {
-    handleSearchBoxInput(evt, data, events);
-    console.log("clicked!")
+function initializeSearch(parcelInfo, events, map) {
+  searchBox = document.querySelector('#parcel-id');
+  const searchButton = document.querySelector('#search-button');
+
+  searchButton.addEventListener('click', () => {
+    handleSearchButton(parcelInfo, map);
+  });
+
+  searchBox.addEventListener('keypress', (evt) => {
+    if (evt.key === 'Enter') {
+      handleSearchButton(parcelInfo, map);
+    }
   });
 }
 
-function handleSearchBoxInput(evt, parcelinfo, events) {
-  updateFilteredStations(data, events);
+function handleSearchButton(parcelInfo, map) {
+  const searchValue = searchBox.value.toLowerCase();
+  const matchingParcels = parcelInfo.features.filter((parcel) =>
+    parcel.properties && parcel.properties.PARCELID && parcel.properties.PARCELID.toLowerCase() === searchValue
+  );
+
+  if (matchingParcels.length > 0) {
+    zoomToParcel(matchingParcels, map);
+    highlightParcel(matchingParcels, map);
+  }
 }
 
-function updateFilteredStations(data, events) {
- const lowercaseValue = searchBox.value.toLowerCase();
+function zoomToParcel(parcels, map) {
+  const bounds = L.latLngBounds();
 
- const filteredParcels = [];
- for (const parcel of data.data.parcels) {
-   if (parcel.name.toLowerCase().includes(lowercaseValue)) {
-     filteredParcels.push(parcel);
-   }
- }
+  parcels.forEach((parcel) => {
+    const coordinates = parcel.geometry.coordinates[0][0];
+    coordinates.forEach((coord) => {
+      bounds.extend(L.latLng(coord[1], coord[0]));
+    });
+  });
+
+  map.fitBounds(bounds, { padding: [20, 20] });
 }
 
-  // const filteredStations = data.data.stations
-  //     .filter((station) => station.name.toLowerCase().includes(lowercaseValue));
-
-//  const newEvent = new CustomEvent('filter-stations', { detail: { filteredStations }});
-//  events.dispatchEvent(newEvent);
-//}
-
-export {
- initializeSearch
+function highlightParcel(parcels, map) {
+  // Implement the highlighting functionality here
 }
 
+export { initializeSearch };
 
 
-// function initializeSearch(stationInfo, events) {
-//   const searchBox = document.querySelector('#station-name-filter');
+
+
+
+
+
+
+// const searchBox = document.querySelector('#parcel-id');
+
+// function initializeSearch(parcelInfo, events) {
+  
+//   //const searchButton = document.querySelector('#search-button');
 //   searchBox.addEventListener('input', (evt) => {
-//     handleSearchBoxInput(evt, stationInfo, events);
+//     handleSearchBoxInput(evt, parcelInfo, events);
+//     console.log("clicked!")
 //   });
 // }
 
-// function handleSearchBoxInput(evt, stationInfo, events) {
-//   updateFilteredStations(stationInfo, events);
+// function handleSearchBoxInput(evt, parcelinfo, events) {
+//   updateFilteredStations(parcelInfo, events);
 // }
 
-// function updateFilteredStations(stationInfo, events) {
-//   const searchBox = document.querySelector('#station-name-filter');
-//   const lowercaseValue = searchBox.value.toLowerCase();
+// function updateFilteredStations(parcelInfo, events) {
+//  const lowercaseValue = searchBox.value.toLowerCase();
 
-//   const filteredStations = [];
-//   for (const station of stationInfo.data.stations) {
-//     if (station.name.toLowerCase().includes(lowercaseValue)) {
-//       filteredStations.push(station);
-//     }
-//   }
+//  const filteredParcels = [];
+//  for (const parcel of parcelInfo.data.parcels) {
+//    if (parcel.name.toLowerCase().includes(lowercaseValue)) {
+//      filteredParcels.push(parcel);
+//    }
+//  }
+// }
 
-//   // const filteredStations = stationInfo.data.stations
+//   // const filteredStations = data.data.stations
 //   //     .filter((station) => station.name.toLowerCase().includes(lowercaseValue));
 
-//   const newEvent = new CustomEvent('filter-stations', { detail: { filteredStations }});
-//   events.dispatchEvent(newEvent);
-// }
+// //  const newEvent = new CustomEvent('filter-stations', { detail: { filteredStations }});
+// //  events.dispatchEvent(newEvent);
+// //}
 
 // export {
-//   initializeSearch,
-// };
+//  initializeSearch
+// }
