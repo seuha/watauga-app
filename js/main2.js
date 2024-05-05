@@ -53,52 +53,52 @@ document.getElementById('remove-filters').addEventListener('click', () => {
 
 
 /* =============== Legend =============== */
-
 // Legend for Development Probability Layer
-const legend_dvpt = L.control({position: 'bottomright'});
-
+const legend_dvpt = L.control({ position: 'bottomright' });
 legend_dvpt.onAdd = function (map) {
+  const div = L.DomUtil.create('div', 'info legend');
+  const labels = [
+  `<div><i style="background: ${"#7a0177"}"></i><span>${"p&ge;0.8"}</span></div>`,
+  `<div><i style="background: ${"#c51b8a"}"></i><span>${"0.4&lt;p&le;0.8"}</span></div>`,
+  `<div><i style="background: ${"#f768a1"}"></i><span>${"0.2&lt;p&le;0.4"}</span></div>`,
+  `<div><i style="background: ${"#fa9fb5"}"></i><span>${"0.1&lt;p&le;0.2"}</span></div>`,
+  `<div><i style="background: ${"#fcc5c0"}"></i><span>${"0.05&lt;p&le;0.1"}</span></div>`,
+  `<div><i style="background: ${"#feebe2"}"></i><span>${"p&le;0.05"}</span></div>`
+  ];
+  div.innerHTML = labels.join('');
+  return div;
+};
 
-		const div = L.DomUtil.create('div', 'info legend');
-		const labels = [
-      `<i style="background: ${"#7a0177"}"></i>${"p>0.8"}`,
-      `<i style="background: ${"#c51b8a"}"></i>${"0.4<p=<0.8>"}`,
-      `<i style="background: ${"#f768a1"}"></i>${"0.2<p=<0.4"}`,
-      `<i style="background: ${"#fa9fb5"}"></i>${"0.1<p=<0.2"}`,
-      `<i style="background: ${"#fcc5c0"}"></i>${"0.05<p=<0.1"}`,
-      `<i style="background: ${"#feebe2"}"></i>${"p=<0.05"}`
-      ];
-
-		div.innerHTML = labels.join('<br>');
-		return div;
-	};
-
-    legend_dvpt.addTo(map.developmentProbabilityLayer);
-
+map.on("baselayerchange", function (event) {
+  if (event.name === 'Development Probability') {
+    legend_dvpt.addTo(map);
+  } else {
+    map.removeControl(legend_dvpt);
+  }
+});
 
 // Legend for Dist to Road Layer
-const legend_road = L.control({position: 'bottomright'});
-
+const legend_road = L.control({ position: 'bottomright' });
 legend_road.onAdd = function (map) {
+  const div = L.DomUtil.create('div', 'info legend');
+  const labels = [
+    `<div><i style="background: ${"#bd0026"}"></i><span>${"Very Far"}</span></div>`,
+    `<div><i style="background: ${"#f03b20"}"></i><span>${"Far"}</span></div>`,
+    `<div><i style="background: ${"#fd8d3c"}"></i><span>${"Average"}</span></div>`,
+    `<div><i style="background: ${"#fecc5c"}"></i><span>${"Nearby"}</span></div>`,
+    `<div><i style="background: ${"#ffffb2"}"></i><span>${"Very Nearby"}</span></div>`
+  ];
+  div.innerHTML = labels.join('');
+  return div;
+};
 
-        const div = L.DomUtil.create('div', 'info legend');
-        const labels = [
-          `<i style="background: ${"#bd0026"}"></i>${"Very Far"}`,
-          `<i style="background: ${"#f03b20"}"></i>${"Far"}`,
-          `<i style="background: ${"#fd8d3c"}"></i>${"Average"}`,
-          `<i style="background: ${"#fd8d3c"}"></i>${"Nearby"}`,
-          `<i style="background: ${"#ffffb2"}"></i>${"Very Nearby"}`
-          ];
-
-            div.innerHTML = labels.join('<br>'); // I'm not sure what this does
-            return div;
-	};
-
-    legend_road.addTo(map.distanceToRoadsLayer);
-
-
-
-
+map.on("baselayerchange", function (event) {
+  if (event.name === 'Distance to Roads') {
+    legend_road.addTo(map);
+  } else {
+    map.removeControl(legend_road);
+  }
+});
 
 
 export {parcelInfo}

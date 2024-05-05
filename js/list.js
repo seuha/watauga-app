@@ -14,6 +14,14 @@ export function generateTopParcels(features, map, parcelLayer) {
       event.preventDefault();
       const bounds = L.geoJSON(feature).getBounds();
       map.fitBounds(bounds, { maxZoom: 18, padding: [50, 50] });
+
+      // [parcelLayer, developmentProbabilityLayer, distanceToRoadsLayer].forEach(layer => {
+      //   layer.setStyle(f => {
+      //     if (f.properties.PARCELID === feature.properties.PARCELID) {
+      //       return { weight: 5, color: '#ff0000' };
+      //     } else {
+      //       return layer.options.style(f);
+
       parcelLayer.setStyle(f => {
         if (f.properties.PARCELID === feature.properties.PARCELID) {
           return { weight: 5, color: '#ff0000' };
@@ -22,6 +30,7 @@ export function generateTopParcels(features, map, parcelLayer) {
         }
       });
     });
+  // });
     listItem.appendChild(parcelLink);
     resultsList.appendChild(listItem);
   });
@@ -29,9 +38,4 @@ export function generateTopParcels(features, map, parcelLayer) {
   const resultsContainer = document.getElementById('resultsList');
   resultsContainer.innerHTML = '';
   resultsContainer.appendChild(resultsList);
-
-  // // Add event listener to map to handle parcel deselection
-  // map.on('click', () => {
-  //   parcelLayer.setStyle(parcelLayer.options.style);
-  // });
 }

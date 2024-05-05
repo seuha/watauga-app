@@ -1,48 +1,53 @@
-// search.js
 let searchBox;
 
-function initializeSearch(parcelInfo, events, map) {
+function initializeSearch(parcelInfo, events, map, parcelLayer, developmentProbabilityLayer, distanceToRoadsLayer) {
   searchBox = document.querySelector('#parcel-id');
   const searchButton = document.querySelector('#search-button');
-
   searchButton.addEventListener('click', () => {
-    handleSearchButton(parcelInfo, map);
+    handleSearchButton(parcelInfo, map, parcelLayer, developmentProbabilityLayer, distanceToRoadsLayer);
   });
-
   searchBox.addEventListener('keypress', (evt) => {
     if (evt.key === 'Enter') {
-      handleSearchButton(parcelInfo, map);
+      handleSearchButton(parcelInfo, map, parcelLayer, developmentProbabilityLayer, distanceToRoadsLayer);
     }
   });
 }
 
-function handleSearchButton(parcelInfo, map) {
+function handleSearchButton(parcelInfo, map, parcelLayer, developmentProbabilityLayer, distanceToRoadsLayer) {
   const searchValue = searchBox.value.toLowerCase();
-  const matchingParcels = parcelInfo.features.filter((parcel) =>
+  const matchingParcels = parcelInfo.features.filter((parcel) => 
     parcel.properties && parcel.properties.PARCELID && parcel.properties.PARCELID.toLowerCase() === searchValue
   );
-
   if (matchingParcels.length > 0) {
     zoomToParcel(matchingParcels, map);
-    highlightParcel(matchingParcels, map);
+    highlightParcel(matchingParcels[0], parcelLayer, developmentProbabilityLayer, distanceToRoadsLayer);
   }
 }
 
 function zoomToParcel(parcels, map) {
   const bounds = L.latLngBounds();
-
   parcels.forEach((parcel) => {
     const coordinates = parcel.geometry.coordinates[0][0];
     coordinates.forEach((coord) => {
       bounds.extend(L.latLng(coord[1], coord[0]));
     });
   });
-
   map.fitBounds(bounds, { padding: [20, 20] });
 }
 
-function highlightParcel(parcels, map) {
-  // Implement the highlighting functionality here
+function highlightParcel(parcel, parcelLayer, developmentProbabilityLayer, distanceToRoadsLayer) {
+  const layers = [parcelLayer, developmentProbabilityLayer, distanceToRoadsLayer];
+  layers.forEach(layer => {
+    if (layer) {
+      layer.eachLayer(feature => {
+        if (feature.feature.properties.PARCELID === parcel.properties.PARCELID) {
+          feature.setStyle({ weight: 5, color: '#ff0000' });
+        } else {
+          feature.setStyle(layer.options.style(feature.feature));
+        }
+      });
+    }
+  });
 }
 
 export { initializeSearch };
@@ -52,41 +57,62 @@ export { initializeSearch };
 
 
 
+// let searchBox;
 
+// function initializeSearch(parcelInfo, events, map) {
+//   searchBox = document.querySelector('#parcel-id');
+//   const searchButton = document.querySelector('#search-button');
 
-// const searchBox = document.querySelector('#parcel-id');
+//   searchButton.addEventListener('click', () => {
+//     handleSearchButton(parcelInfo, map);
+//   });
 
-// function initializeSearch(parcelInfo, events) {
-  
-//   //const searchButton = document.querySelector('#search-button');
-//   searchBox.addEventListener('input', (evt) => {
-//     handleSearchBoxInput(evt, parcelInfo, events);
-//     console.log("clicked!")
+//   searchBox.addEventListener('keypress', (evt) => {
+//     if (evt.key === 'Enter') {
+//       handleSearchButton(parcelInfo, map);
+//     }
 //   });
 // }
 
-// function handleSearchBoxInput(evt, parcelinfo, events) {
-//   updateFilteredStations(parcelInfo, events);
+// function handleSearchButton(parcelInfo, map) {
+//   const searchValue = searchBox.value.toLowerCase();
+//   const matchingParcels = parcelInfo.features.filter((parcel) =>
+//     parcel.properties && parcel.properties.PARCELID && parcel.properties.PARCELID.toLowerCase() === searchValue
+//   );
+
+//   if (matchingParcels.length > 0) {
+//     zoomToParcel(matchingParcels, map);
+//     highlightParcel(matchingParcels, map);
+//   }
 // }
 
-// function updateFilteredStations(parcelInfo, events) {
-//  const lowercaseValue = searchBox.value.toLowerCase();
+// function zoomToParcel(parcels, map) {
+//   const bounds = L.latLngBounds();
 
-//  const filteredParcels = [];
-//  for (const parcel of parcelInfo.data.parcels) {
-//    if (parcel.name.toLowerCase().includes(lowercaseValue)) {
-//      filteredParcels.push(parcel);
-//    }
-//  }
+//   parcels.forEach((parcel) => {
+//     const coordinates = parcel.geometry.coordinates[0][0];
+//     coordinates.forEach((coord) => {
+//       bounds.extend(L.latLng(coord[1], coord[0]));
+//     });
+//   });
+
+//   map.fitBounds(bounds, { padding: [20, 20] });
 // }
 
-//   // const filteredStations = data.data.stations
-//   //     .filter((station) => station.name.toLowerCase().includes(lowercaseValue));
-
-// //  const newEvent = new CustomEvent('filter-stations', { detail: { filteredStations }});
-// //  events.dispatchEvent(newEvent);
-// //}
-
-// export {
-//  initializeSearch
+// function highlightParcel(parcels, map) {
+//   parcelLayer.setStyle(f => {
+//     if (f.properties.PARCELID === feature.properties.PARCELID) {
+//       return { weight: 5, color: '#ff0000' };
+//     } else {
+//       return parcelLayer.options.style(f);
+//     }
+// });
 // }
+
+// export { initializeSearch };
+
+
+
+
+
+

@@ -1,5 +1,4 @@
-// Initialize map with OSM
-
+/* =============== Popup =============== */
 export function layerPopup(layer) {
   return `
     <h3>Parcel Information</h3>
@@ -15,6 +14,7 @@ export function layerPopup(layer) {
   `;
 }
 
+/* =============== Initialize Map =============== */
 export function initializeMap(parcelInfo, events) {
   const map = L.map('map', { preferCanvas: true }).setView([36.216795, -81.6745517], 12);
 
@@ -25,16 +25,26 @@ export function initializeMap(parcelInfo, events) {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
 
+
   /* =============== Layers =============== */
   // Create parcel outline layer
   const parcelLayer = L.geoJSON(parcelInfo, {
     style: feature => ({
       weight: 1,
       color: 'black',
-      fillcolor: 'black',
+      fillColor: 'black',
       fillOpacity: 0.8
     }),
-    // onEachFeature: addPopup
+    onEachFeature: (feature, layer) => {
+      feature.properties.initialStyleParcel = layer.options.style(feature);
+      layer.on('click', e => {
+        parcelLayer.setStyle(f => f.properties.initialStyleParcel);
+          layer.setStyle({
+            weight: 3,
+            color: '#ff0000'
+          });
+        });
+    }
   }).bindPopup(layerPopup);
 
   map.parcelLayer = parcelLayer; //attaches to map object
@@ -46,8 +56,17 @@ export function initializeMap(parcelInfo, events) {
       weight: 1,
       color: '#CCCCCC',
       fillOpacity: 0.8
-    }),
-    // onEachFeature: addPopup
+    }), 
+    onEachFeature: (feature, layer) => { //store initial style on the layers by feature
+      feature.properties.initialStyleProb = layer.options.style(feature);
+      layer.on('click', e => {
+        developmentProbabilityLayer.setStyle(f => f.properties.initialStyleProb);
+          layer.setStyle({
+            weight: 3,
+            color: '#ff0000'
+          });
+        });
+    }
   }).bindPopup(layerPopup);;
 
   map.developmentProbabilityLayer = developmentProbabilityLayer; //attaches to map object
@@ -60,7 +79,16 @@ export function initializeMap(parcelInfo, events) {
       color: '#CCCCCC',
       fillOpacity: 0.8
     }),
-    // onEachFeature: addPopup
+    onEachFeature: (feature, layer) => {
+      feature.properties.initialStyleDist = layer.options.style(feature);
+      layer.on('click', e => {
+        distanceToRoadsLayer.setStyle(f => f.properties.initialStyleDist);
+          layer.setStyle({
+            weight: 3,
+            color: '#ff0000'
+          });
+        });
+    }
   }).bindPopup(layerPopup);;
 
   map.distanceToRoadsLayer = distanceToRoadsLayer; //attaches to map object
@@ -137,11 +165,11 @@ export function initializeMap(parcelInfo, events) {
   //     }
   //   });
   // }
-
-  return {
-    map,
-    parcelLayer,
-    developmentProbabilityLayer,
-    distanceToRoadsLayer
-  };
+  return map;
+  // return {
+  //   map,
+  //   parcelLayer,
+  //   developmentProbabilityLayer,
+  //   distanceToRoadsLayer
+  // };
 }

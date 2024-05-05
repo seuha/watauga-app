@@ -4,7 +4,7 @@ import { generateTopParcels } from './list.js';
 
 
 /* =============== Filters =============== */
-export function filterParcels(parcelLayer, developmentProbabilityLayer, distanceToRoadsLayer) {
+export function filterParcels(parcelLayer, developmentProbabilityLayer, distanceToRoadsLayer, map) {
     // const sizeFilters = Array.from(document.querySelectorAll('input[type="checkbox"][id^="0-"]')).filter(checkbox => checkbox.checked).map(checkbox => checkbox.id.split('-')[0]);
     const minAcres = document.getElementById('min-acres').value;
     const maxAcres = document.getElementById('max-acres').value;
@@ -42,20 +42,23 @@ export function filterParcels(parcelLayer, developmentProbabilityLayer, distance
     // parcelLayer.addData(filteredFeatures);
     parcelLayer.setStyle(feature => {
       if (feature.properties.good) {
-        return {
-          weight: 1,
-          color: 'black',
-          fillColor: 'black',
-          fillOpacity: 0.8
-        };
+        feature.properties.initialStyleParcel = parcelLayer.options.style(feature);
+        // return {
+        //   weight: 1,
+        //   color: 'black',
+        //   fillColor: 'black',
+        //   fillOpacity: 0.8
+        // };
       } else {
-        return {
+        // return 
+        feature.properties.initialStyleParcel = {
           weight: 1,
           color: 'black',
           fillColor: 'gray',
-          fillOpacity: 0.5
+          fillOpacity: 0.6
         };
       }
+      return feature.properties.initialStyleParcel;
     });
   
     console.log('Updating development probability layers...');
@@ -63,20 +66,23 @@ export function filterParcels(parcelLayer, developmentProbabilityLayer, distance
     // developmentProbabilityLayer.addData(filteredFeatures);
     developmentProbabilityLayer.setStyle(feature => {
       if (feature.properties.good) {
-        return { //can i say retain original style?
-          fillColor: getDvptColor(feature.properties.Dvpt_Prob),
-          weight: 1,
-          color: '#CCCCCC',
-          fillOpacity: 0.8
-        };
+        feature.properties.initialStyleProb = developmentProbabilityLayer.options.style(feature);
+        // return { 
+        //   fillColor: getDvptColor(feature.properties.Dvpt_Prob),
+        //   weight: 1,
+        //   color: '#CCCCCC',
+        //   fillOpacity: 0.8
+        // };
       } else {
-        return {
+        // return {
+          feature.properties.initialStyleProb = {
           weight: 1,
           color: 'gray',
           fillColor: 'gray',
           fillOpacity: 0.8
         };
       }
+      return feature.properties.initialStyleProb;
     });
   
     console.log('Updating distance to roads layers...');
@@ -84,20 +90,23 @@ export function filterParcels(parcelLayer, developmentProbabilityLayer, distance
     // distanceToRoadsLayer.addData(filteredFeatures);
     distanceToRoadsLayer.setStyle(feature => {
       if (feature.properties.good) {
-        return { //can i say retain original style?
-          fillColor: getRoadColor(feature.properties.Dist_Road),
-          weight: 1,
-          color: '#CCCCCC',
-          fillOpacity: 0.8
-        };
+        feature.properties.initialStyleDist = distanceToRoadsLayer.options.style(feature);
+        // return { 
+        //   fillColor: getRoadColor(feature.properties.Dist_Road),
+        //   weight: 1,
+        //   color: '#CCCCCC',
+        //   fillOpacity: 0.8
+        // };
       } else {
-        return {
+        // return {
+          feature.properties.initialStyleDist = {
           weight: 1,
           color: 'gray',
           fillColor: 'gray',
           fillOpacity: 0.8
         };
       }
+      return feature.properties.initialStyleDist;
     });
 
     // Choropleth color function for Development Probability
@@ -132,7 +141,7 @@ export function removeSizeFilter(map) {
   document.getElementById('max-acres').value = '';
 
   // Update parcel layers
-  filterParcels(map.parcelLayer, map.developmentProbabilityLayer, map.distanceToRoadsLayer);
+  filterParcels(map.parcelLayer, map.developmentProbabilityLayer, map.distanceToRoadsLayer, map);
 }
 
 // Remove slope filter function
@@ -141,7 +150,7 @@ export function removeSlopeFilter(map) {
   document.getElementById('slope-threshold').value = '';
 
   // Update parcel layers
-  filterParcels(map.parcelLayer, map.developmentProbabilityLayer, map.distanceToRoadsLayer);
+  filterParcels(map.parcelLayer, map.developmentProbabilityLayer, map.distanceToRoadsLayer, map);
 }
 
 // Remove property value filter function
@@ -151,5 +160,5 @@ export function removeValueFilter(map) {
   document.getElementById('max-value').value = '';
 
   // Update parcel layers
-  filterParcels(map.parcelLayer, map.developmentProbabilityLayer, map.distanceToRoadsLayer);
+  filterParcels(map.parcelLayer, map.developmentProbabilityLayer, map.distanceToRoadsLayer, map);
 }
