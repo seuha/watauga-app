@@ -58,12 +58,12 @@ const legend_dvpt = L.control({ position: 'bottomright' });
 legend_dvpt.onAdd = function (map) {
   const div = L.DomUtil.create('div', 'info legend');
   const labels = [
-  `<div><i style="background: ${"#7a0177"}"></i><span>${"p&ge;0.8"}</span></div>`,
-  `<div><i style="background: ${"#c51b8a"}"></i><span>${"0.4&lt;p&le;0.8"}</span></div>`,
-  `<div><i style="background: ${"#f768a1"}"></i><span>${"0.2&lt;p&le;0.4"}</span></div>`,
-  `<div><i style="background: ${"#fa9fb5"}"></i><span>${"0.1&lt;p&le;0.2"}</span></div>`,
-  `<div><i style="background: ${"#fcc5c0"}"></i><span>${"0.05&lt;p&le;0.1"}</span></div>`,
-  `<div><i style="background: ${"#feebe2"}"></i><span>${"p&le;0.05"}</span></div>`
+  `<div><i style="background: ${"#7a0177"}"></i><span>${"Extremely Likely"}</span></div>`,
+  `<div><i style="background: ${"#c51b8a"}"></i><span>${"Likely"}</span></div>`,
+  `<div><i style="background: ${"#f768a1"}"></i><span>${"Somewhat Likely"}</span></div>`,
+  `<div><i style="background: ${"#fa9fb5"}"></i><span>${"Somewhat Unlikley"}</span></div>`,
+  `<div><i style="background: ${"#fcc5c0"}"></i><span>${"Unlikely"}</span></div>`,
+  `<div><i style="background: ${"#feebe2"}"></i><span>${"Extremely Unlikely"}</span></div>`
   ];
   div.innerHTML = labels.join('');
   return div;
