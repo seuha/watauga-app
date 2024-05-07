@@ -12,7 +12,7 @@ const map = initializeMap(parcelInfo, events);
 window.themap = map;
 
 //Search
-initializeSearch(parcelInfo, events, map);
+initializeSearch(parcelInfo, events, map, map.parcelLayer, map.developmentProbabilityLayer, map.distanceToRoadsLayer);
 
 
 // Call filterParcels with the map object
@@ -29,7 +29,7 @@ document.getElementById('apply-value-filters').addEventListener('click', () => {
   });
 
 // Generate top parcels on page load
-generateTopParcels(parcelInfo.features, map, map.parcelLayer);
+generateTopParcels(parcelInfo.features, map, map.parcelLayer, map.developmentProbabilityLayer, map.distanceToRoadsLayer);
 
 
 /* =============== Remove filterParcels =============== */

@@ -128,7 +128,7 @@ export function filterParcels(parcelLayer, developmentProbabilityLayer, distance
             '#ffffb2';
   }
   
-  generateTopParcels(parcelInfo.features.filter(feature => feature.properties.good), map, parcelLayer);
+  generateTopParcels(parcelInfo.features.filter(feature => feature.properties.good), map, parcelLayer, developmentProbabilityLayer, distanceToRoadsLayer);
   }
 
 
